@@ -1,0 +1,4 @@
+dependencies {
+    implementation project(':common')
+    testImplementation('org.mock-server:mockserver-netty:5.13.0')
+}
