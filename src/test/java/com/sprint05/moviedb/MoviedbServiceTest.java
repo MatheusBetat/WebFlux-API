@@ -100,7 +100,6 @@ class MoviedbServiceTest {
                 })
                 .verifyComplete();
 
-
     }
 
     @Test

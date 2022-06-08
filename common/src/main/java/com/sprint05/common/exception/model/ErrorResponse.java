@@ -18,6 +18,5 @@ public class ErrorResponse {
 
     private List<ErrorObject> error;
 
-    private String message;
 
 }

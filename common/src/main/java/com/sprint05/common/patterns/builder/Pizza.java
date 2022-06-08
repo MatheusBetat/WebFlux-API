@@ -49,4 +49,14 @@ public class Pizza {
         bacon = builder.bacon;
 
     }
+
+    public static void main(String[] args) {
+
+        Pizza pizza = new Pizza.Builder(10)
+                .queijo()
+                .tomate()
+                .bacon()
+                .build();
+
+    }
 }

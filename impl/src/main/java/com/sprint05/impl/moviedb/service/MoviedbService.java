@@ -1,5 +1,6 @@
 package com.sprint05.impl.moviedb.service;
 
+import com.sprint05.common.exception.handler.notfound.NotFoundException;
 import com.sprint05.impl.moviedb.mapper.response.MoviedbServiceResponseMapper;
 import com.sprint05.impl.moviedb.model.request.MoviedbServiceRequest;
 import com.sprint05.impl.moviedb.model.response.MoviedbServiceResponse;
@@ -32,6 +33,7 @@ public class MoviedbService {
 
     public Mono<MoviedbServiceResponse> getMyMovie(String movieId){
         return moviedbRepository.findById(movieId)
+                .switchIfEmpty(Mono.error(new NotFoundException("Not Found: " + movieId)))
                 .map(MoviedbServiceResponseMapper::toServiceResponse);
     }
 

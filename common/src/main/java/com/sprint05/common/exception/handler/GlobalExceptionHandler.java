@@ -1,14 +1,14 @@
 package com.sprint05.common.exception.handler;
 
 import com.sprint05.common.exception.handler.notfound.NotFoundException;
-import com.sprint05.common.exception.model.ErrorObject;
 import com.sprint05.common.exception.model.ErrorResponse;
+import com.sprint05.common.exception.model.ErrorObject;
 import org.springframework.validation.FieldError;
-import org.springframework.web.bind.MethodArgumentNotValidException;
+
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import org.springframework.web.server.MethodNotAllowedException;
+import org.springframework.web.bind.support.WebExchangeBindException;
 import reactor.core.publisher.Mono;
 
 import java.time.LocalDateTime;
@@ -47,22 +47,9 @@ public class GlobalExceptionHandler {
 
     }
 
-    @ExceptionHandler(MethodNotAllowedException.class)
-    @ResponseStatus(METHOD_NOT_ALLOWED)
-    public Mono<ErrorResponse> methodNotAllowed(MethodNotAllowedException error) {
-        return Mono.just(ErrorResponse.builder()
-                .timestamp(LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS))
-                .error(List.of(ErrorObject.builder()
-                        .message(INTERNAL_SERVER_ERROR.name())
-                        .field(error.getMessage())
-                        .build()))
-                .build());
-
-    }
-
-    @ExceptionHandler(MethodArgumentNotValidException.class)
+    @ExceptionHandler(WebExchangeBindException.class)
     @ResponseStatus(code = BAD_REQUEST)
-    public Mono<ErrorResponse> handlerBadRequestException(MethodArgumentNotValidException error) {
+    public Mono<ErrorResponse> handlerBadRequestException(WebExchangeBindException error) {
         List<FieldError> errorList = error.getBindingResult().getFieldErrors();
         return Mono.just(ErrorResponse.builder()
                 .timestamp(LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS))

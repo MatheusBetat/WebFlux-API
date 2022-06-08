@@ -36,7 +36,6 @@ class MoviedbControllerTest {
     @MockBean
     MoviedbService moviedbService;
 
-
     @Test
     void getMovie() {
 

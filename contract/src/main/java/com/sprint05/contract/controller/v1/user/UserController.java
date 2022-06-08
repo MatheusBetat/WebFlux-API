@@ -34,7 +34,7 @@ public class UserController {
     }
 
     @PostMapping("/create")
-    public Mono<UserControllerResponse> saveUser(@Valid @RequestBody UserControllerRequest userControllerRequest){
+    public Mono<UserControllerResponse> saveUser(@RequestBody @Valid UserControllerRequest userControllerRequest){
         return userControllerFacade.saveUser(userControllerRequest);
 
     }
